@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+@import '../../../../vendor/filament/filament/resources/css/base.css';
+
+@config 'tailwind.config.js';
+
+.fi-sidebar-nav {
+    @apply bg-gray-50 shadow-inner rounded-none;
+}
+
+.fi-sidebar-header, .fi-topbar nav {
+    @apply bg-primary-500 drop-shadow;
+}
+
+.fi-sidebar-header .fi-icon-btn-icon {
+    @apply text-white;
+}
+
+.fi-logo {
+    @apply text-white;
+}
+
+.fi-layout {
+    @apply bg-white;
+}
+
+.fi-btn-icon {
+    @apply h-3 w-3;
+}
+
+.fi-sidebar-item-icon {
+    @apply h-5 w-5;
+}
+
+.fi-btn {
+    @apply px-5 rounded-md;
+}
+
+.fi-btn:hover {
+    @apply shadow-md;
+}
+
+.fi-sidebar-item-button:hover .fi-sidebar-item-label,
+.fi-sidebar-item-button:hover .fi-sidebar-item-icon {
+    @apply text-primary-500
+}
+
+.fi-topbar-item:not(.fi-active) .fi-topbar-item-label,
+.fi-topbar-item:not(.fi-active) .fi-topbar-item-icon {
+   @apply text-white;
+}
+
+.fi-topbar-item:not(.fi-active):hover .fi-topbar-item-label,
+.fi-topbar-item:not(.fi-active):hover .fi-topbar-item-icon {
+   @apply text-primary-500;
+}
+
+/*
+* Table Column Freeze
+*/
+
+div.choices__list--dropdown, .choices__list[aria-expanded] {
+    z-index: 20;
+}
+
+.fi-dropdown-panel {
+    z-index: 20;
+}
+
+table.fi-ta-table th{
+    z-index: 10;
+    @apply sticky top-0 bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700;
+}
+
+table.fi-ta-table th.fi-ta-actions-header-cell, table .fi-ta-actions-cell {
+    position: sticky;
+    right: 0;
+}
+
+table.fi-ta-table th.fi-ta-actions-header-cell:before, table .fi-ta-actions-cell:before {
+    box-shadow: inset -10px 0 10px -10px rgba(0, 0, 0, .15);
+    left: -10px;
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 10px;
+    bottom: 0px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    touch-action: none;
+    pointer-events: none;
+}
+
+table .fi-ta-actions-cell {
+    @apply bg-white;
+}
+
+/*
+* End Table Column Freeze
+*/
