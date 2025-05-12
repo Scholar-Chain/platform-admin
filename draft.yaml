@@ -1,0 +1,6 @@
+models:
+  SyncErrorLog:
+    external_id: unsignedInteger nullable
+    assoc: string nullable
+    payload: json
+    error_message: text

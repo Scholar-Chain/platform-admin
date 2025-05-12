@@ -12,6 +12,7 @@ use Filament\FontProviders\GoogleFontProvider;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Filament\Http\Middleware\AuthenticateSession;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -24,16 +25,16 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
             ->id('admin')
-            ->path('')
-            ->login()
-            ->registration()
+            ->path('admin')
             ->theme(asset('css/filament/admin/theme.css'))
             ->darkMode(false)
             ->font("Inter", provider: GoogleFontProvider::class)
             ->colors([
                 'primary' => Color::Amber,
+            ])
+            ->resources([
+
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -43,7 +44,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -55,6 +55,8 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+            ])->plugins([
+                FilamentShieldPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\UserRole;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            ShieldSeeder::class
+        ]);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+            'name' => 'Administrator',
+            'email' => 'su@gmail.com',
+            'password' => bcrypt('password'),
+            'is_active' => true
+        ])->assignRole(UserRole::SUPER_ADMIN->value);
     }
 }

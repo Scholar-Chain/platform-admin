@@ -22,6 +22,12 @@ use Illuminate\Support\Facades\Vite;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public $singletons = [
+        \Filament\Http\Responses\Auth\Contracts\LoginResponse::class => \App\Http\Responses\LoginResponse::class,
+        \Filament\Http\Responses\Auth\Contracts\LogoutResponse::class => \App\Http\Responses\LogoutResponse::class,
+        \Filament\Http\Responses\Auth\Contracts\RegistrationResponse::class => \App\Http\Responses\RegisterResponse::class,
+    ];
+
     /**
      * Register any application services.
      */
