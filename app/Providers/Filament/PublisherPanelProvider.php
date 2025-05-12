@@ -28,6 +28,7 @@ class PublisherPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('publisher')
+            ->spa()
             ->path('')
             ->colors([
                 'primary' => Color::Amber,

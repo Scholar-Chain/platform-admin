@@ -15,6 +15,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Repeater;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -23,13 +24,22 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 
-class JournalResource extends Resource
+class JournalResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Journal::class;
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
     protected static ?string $modelLabel = 'Jurnal';
     protected static ?string $modelPluralLabel = 'Jurnal';
+
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            ...config('filament-shield.permission_prefixes.resource'),
+            'sync'
+        ];
+    }
 
     public static function form(Form $form): Form
     {
@@ -59,11 +69,12 @@ class JournalResource extends Resource
                     ->schema([
                         Grid::make(2)
                             ->schema([
-                                KeyValue::make('scope')
-                                    ->label('Scope')
-                                    ->keyLabel('Slug')
-                                    ->valueLabel('Nama')
-                                    ->required(),
+                                Repeater::make('scope')
+                                    ->defaultItems(1)
+                                    ->simple(
+                                        TextInput::make('name')
+                                            ->required(),
+                                    ),
 
                                 FileUpload::make('thumbnail')
                                     ->label('Thumbnail Cover')
@@ -179,9 +190,10 @@ class JournalResource extends Resource
                         '12' => 'Desember',
                     ]),
             ])
+            ->searchPlaceholder('Cari Nama Jurnal')
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->mutateFormDataUsing(function($data, $record) {
+                    ->mutateFormDataUsing(function ($data, $record) {
                         if (!$record->already_edit && !$record->is_active) {
                             $data['already_edit'] = 1;
                             $data['is_active'] = 1;

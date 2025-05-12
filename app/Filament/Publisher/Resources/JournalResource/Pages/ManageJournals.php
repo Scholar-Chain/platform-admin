@@ -18,6 +18,7 @@ class ManageJournals extends ManageRecords
     {
         return [
             Actions\Action::make('sync')
+                ->visible(fn() => auth()->user()->can('sync_journal'))
                 ->action(fn() => static::sync())
                 ->icon('heroicon-m-arrow-path')
                 ->label('Sinkron OJS'),

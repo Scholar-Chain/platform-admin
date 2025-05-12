@@ -2,23 +2,27 @@
 
 namespace App\Providers;
 
+use Illuminate\View\View;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\DB;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Facades\URL;
 use Filament\Forms\Components\Radio;
+use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\Facades\Blade;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\Facades\FilamentView;
 use Filament\Tables\Actions\EditAction as TableEditAction;
 use Filament\Tables\Actions\ViewAction as TableViewAction;
 use Filament\Tables\Actions\CreateAction as TableCreateAction;
 use Filament\Tables\Actions\DeleteAction as TablesDeleteAction;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Vite;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -107,5 +111,19 @@ class AppServiceProvider extends ServiceProvider
             'panels::sidebar.expand-button' => 'heroicon-o-bars-3-bottom-left',
             'panels::pages.dashboard.navigation-item' => 'heroicon-o-chart-bar',
         ]);
+
+        /*
+        *   Filament Render Hooks
+        */
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::SCRIPTS_AFTER,
+            fn(): string => Blade::render(<<<HTML
+                <script>
+                    document.addEventListener('livewire:load', () => {
+                        Livewire.onPageExpired((response, message) => {})
+                    })
+                </script>
+            HTML),
+        );
     }
 }

@@ -12,6 +12,7 @@ use Filament\FontProviders\GoogleFontProvider;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Filament\Http\Middleware\AuthenticateSession;
+use App\Filament\Publisher\Resources\JournalResource;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -29,12 +30,13 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->theme(asset('css/filament/admin/theme.css'))
             ->darkMode(false)
+            ->spa()
             ->font("Inter", provider: GoogleFontProvider::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
             ->resources([
-
+                JournalResource::class
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
