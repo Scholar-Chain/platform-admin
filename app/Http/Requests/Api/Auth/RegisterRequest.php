@@ -25,8 +25,8 @@ class RegisterRequest extends FormRequest
             'given_name' => 'required|string|max:255',
             'family_name' => 'nullable|string|max:255',
             'affiliation' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:ojs.users',
-            'username' => 'required|string|max:255|unique:ojs.users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'username' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|max:255',
         ];
     }
