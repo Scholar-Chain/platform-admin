@@ -1,10 +1,13 @@
 created:
-    - database/factories/SyncErrorLogFactory.php
-    - database/migrations/2025_05_12_045237_create_sync_error_logs_table.php
-    - app/Models/SyncErrorLog.php
+    - database/factories/SubmissionFactory.php
+    - database/migrations/2025_05_12_231919_create_submissions_table.php
+    - app/Models/Submission.php
 models:
-    Journal: { external_id: 'integer unsigned', name: string, price: 'decimal:8,2', scope: json, path: string, thumbnail: string, publish_months: json, publisher_id: 'biginteger unsigned' }
+    Author: {  }
+    ConnectorAccessToken: {  }
+    Journal: { external_id: 'integer unsigned', name: string, price: 'integer nullable', scope: 'json nullable', path: string, thumbnail: 'string nullable', publish_months: 'json nullable', publisher_id: 'biginteger unsigned', is_active: boolean, already_edit: boolean }
     MessageLog: { channel: string, target: string, message: 'longtext nullable', media: 'string nullable', response: 'json nullable', success: boolean }
     Publisher: { publishing_name: string, address: 'text nullable', website: string, ojs_driver_url: string, user_id: 'biginteger unsigned' }
+    SyncErrorLog: { external_id: 'integer unsigned nullable', assoc: 'string nullable', payload: json, error_message: text }
     User: { name: string, email: string, phone_number: 'string nullable', is_active: boolean, email_verified_at: 'timestamp nullable', password: string, remember_token: 'string:100 nullable' }
-    SyncErrorLog: { external_id: 'unsignedInteger nullable', assoc: 'string nullable', payload: json, error_message: text }
+    Submission: { external_id: unsignedInteger, relationships: { belongsTo: 'Author, Publisher' } }

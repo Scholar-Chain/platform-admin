@@ -134,15 +134,15 @@ class BaseRepository implements EloquentRepositoryInterface
      */
     public function update(string $id, array $attributes): BaseResource
     {
-        $data = $this->find($id);
+        $data = $this->model->find($id);
         $fills = [];
         foreach ($this->model->getFillable() as $fillable) {
             if (in_array($fillable, $this->model->getImageFields()) && isset($attributes[$fillable]) && !is_null($attributes[$fillable]) && request()->hasFile($fillable)) {
                 $config_name = 'media.image.' . $this->getModelName(true) . '.' . $fillable;
                 $value = null;
                 if (config()->has($config_name)) {
-                    $this->mediaHelpers->deleteImages($data->{$fillable}, config($config_name . '.variants'));
                     $mediaHelpers = new MediaHelpers;
+                    $mediaHelpers->deleteImages($data->{$fillable}, config($config_name . '.variants'));
                     $images = $mediaHelpers->generateImages(request()->file($fillable), config($config_name . '.base_directory'), config($config_name . '.variants'));
                     $value = $images[''];
                 } else {

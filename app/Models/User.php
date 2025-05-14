@@ -64,6 +64,11 @@ class User extends Authenticatable implements FilamentUser, JWTSubject
         return $this->hasOne(Publisher::class);
     }
 
+    public function author(): HasOne
+    {
+        return $this->hasOne(Author::class);
+    }
+
     // Rest omitted for brevity
 
     /**

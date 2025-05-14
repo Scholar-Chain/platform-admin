@@ -150,7 +150,7 @@ class Register extends AuthRegister
 
     protected function getPhoneFormComponent(): Component
     {
-        return PhoneInput::make('phone')
+        return PhoneInput::make('phone_number')
             ->unique(ignoreRecord: true)
             ->validateFor(
                 country: 'ID',

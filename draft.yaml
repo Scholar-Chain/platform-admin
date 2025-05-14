@@ -1,6 +1,5 @@
 models:
-  SyncErrorLog:
-    external_id: unsignedInteger nullable
-    assoc: string nullable
-    payload: json
-    error_message: text
+  Submission:
+    external_id: unsignedInteger
+    relationships:
+        belongsTo: Author, Publisher

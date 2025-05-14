@@ -8,10 +8,23 @@ Route::get('journals/{journal}', [App\Http\Controllers\Api\JournalController::cl
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
 ], function ($router) {
-    Route::post('login', [App\Http\Controllers\Api\AuthController::class, 'login']);
-    Route::post('logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
-    Route::post('refresh', [App\Http\Controllers\Api\AuthController::class, 'refresh']);
-    Route::post('me', [App\Http\Controllers\Api\AuthController::class, 'me']);
+    Route::group([
+        'prefix' => 'auth'
+    ], function ($router) {
+        Route::put('profile/{user}', [App\Http\Controllers\Api\AuthController::class, 'edit']);
+        Route::patch('profile/{user}', [App\Http\Controllers\Api\AuthController::class, 'edit']);
+        Route::post('login', [App\Http\Controllers\Api\AuthController::class, 'login']);
+        Route::post('register', [App\Http\Controllers\Api\AuthController::class, 'register']);
+        Route::post('logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
+        Route::post('refresh', [App\Http\Controllers\Api\AuthController::class, 'refresh']);
+        Route::post('me', [App\Http\Controllers\Api\AuthController::class, 'me']);
+    });
+
+    Route::group([
+        'prefix' => 'author',
+        'roles' => 'author'
+    ], function ($router) {
+        Route::post('submission', [App\Http\Controllers\Api\SubmissionController::class, 'store']);
+    });
 });
