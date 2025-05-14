@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Api\Auth\EditRequest;
 use App\Repositories\Eloquent\UserRepository;
 use App\Http\Requests\Api\Auth\RegisterRequest;
@@ -119,7 +120,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth('api')->user());
+        return response()->json(new UserResource(auth('api')->user()));
     }
 
     /**
