@@ -102,7 +102,7 @@ class AuthController extends Controller
             DB::rollback();
             return response()->json([
                 'errors' => 'Proses data gagal, silahkan coba lagi',
-            ], $e->getCode() == 0 ? 500 : ($e->getCode() != 23000 ? $e->getCode() : 500));
+            ], $e->getCode() == 0 ? 500 : ($e->getCode() != 23000 ?: 500));
         }
     }
 
