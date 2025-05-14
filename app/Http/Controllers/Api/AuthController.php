@@ -81,11 +81,9 @@ class AuthController extends Controller
                 "name" => $data['given_name'],
                 "email" => $data['email'],
                 "password" => bcrypt($data['password']),
-            ])->author()->create([
-                'given_name' => $data['given_name'],
-                'family_name' => $data['family_name'] ?? null,
-                'affiliation' => $data['affiliation']
             ]);
+
+            $user->author()->create($data);
 
             DB::commit();
             $token = JWTAuth::fromUser($user);
