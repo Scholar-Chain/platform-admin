@@ -55,11 +55,13 @@ class UserRepository extends BaseRepository
             if (isset($attributes['author'])) {
                 $author = $attributes['author'];
                 unset($attributes['author']);
-                $attrs = [
-                    'given_name' => $author['given_name'],
-                    'family_name' => $author['family_name'],
-                    'affiliation' => $author['affiliation'],
-                ];
+                $attrs = [];
+
+                foreach (['given_name', 'family_name', 'affiliation'] as $value) {
+                    if (isset($author[$value])) {
+                        $attr[$value] = $author[$value];
+                    }
+                }
 
                 if (isset($author['wallet_address']) && is_null($data->author->wallet_address)) {
                     $attrs['wallet_address'] = $author['wallet_address'];
