@@ -52,7 +52,7 @@ class AuthController extends Controller
 
             $user = $this->userModel->update(auth('api')->user()->id, $data);
             DB::commit();
-            return response()->json($user);
+            return response()->json(new UserResource($user));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollback();
             return response()->json([

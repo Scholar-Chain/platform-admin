@@ -20,8 +20,8 @@ Route::group([
     Route::group([
         'prefix' => 'auth'
     ], function ($router) {
-        Route::put('profile/{user}', [App\Http\Controllers\Api\AuthController::class, 'edit']);
-        Route::patch('profile/{user}', [App\Http\Controllers\Api\AuthController::class, 'edit']);
+        Route::put('profile', [App\Http\Controllers\Api\AuthController::class, 'edit']);
+        Route::patch('profile', [App\Http\Controllers\Api\AuthController::class, 'edit']);
         Route::post('logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
         Route::post('refresh', [App\Http\Controllers\Api\AuthController::class, 'refresh']);
         Route::post('me', [App\Http\Controllers\Api\AuthController::class, 'me']);
