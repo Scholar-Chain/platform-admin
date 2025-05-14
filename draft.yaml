@@ -1,5 +1,0 @@
-models:
-  Submission:
-    external_id: unsignedInteger
-    relationships:
-        belongsTo: Author, Publisher
