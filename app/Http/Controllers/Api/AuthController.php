@@ -6,7 +6,7 @@ use App\Models\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Container\Attributes\DB;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Api\Auth\EditRequest;
 use App\Repositories\Eloquent\UserRepository;
 use App\Http\Requests\Api\Auth\RegisterRequest;
