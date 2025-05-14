@@ -83,7 +83,7 @@ class AuthController extends Controller
                 "password" => bcrypt($data['password']),
             ])->author()->create([
                 'given_name' => $data['given_name'],
-                'family_name' => $data['family_name'],
+                'family_name' => $data['family_name'] ?? null,
                 'affiliation' => $data['affiliation']
             ]);
 
