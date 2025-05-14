@@ -44,13 +44,13 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function edit(EditRequest $request, $id)
+    public function edit(EditRequest $request)
     {
         DB::beginTransaction();
         try {
             $data = $request->validated();
 
-            $user = $this->userModel->update($id, $data);
+            $user = $this->userModel->update(auth('api')->user()->id, $data);
             DB::commit();
             return response()->json($user);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
