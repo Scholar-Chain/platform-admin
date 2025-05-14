@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Enums\UserRole;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
@@ -82,7 +83,7 @@ class AuthController extends Controller
                 "name" => $data['given_name'],
                 "email" => $data['email'],
                 "password" => bcrypt($data['password']),
-            ]);
+            ])->assignRole(UserRole::AUTHOR->value);
 
             $user->author()->create([
                 "given_name" => $data["given_name"],
