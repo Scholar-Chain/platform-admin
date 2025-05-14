@@ -25,6 +25,7 @@ class User extends Authenticatable implements FilamentUser, JWTSubject
      */
     protected $fillable = [
         'name',
+        'username',
         'phone_number',
         'is_active',
         'email',

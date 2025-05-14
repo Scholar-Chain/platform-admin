@@ -12,17 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('submissions', function (Blueprint $table) {
-            //
+            $table->enum('status', ['submitted', 'under_review', 'accepted', 'rejected', 'published', 'cancelled'])->default('submitted')->after('external_id');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::table('submissions', function (Blueprint $table) {
-            $table->enum('status', ['submitted', 'under_review', 'accepted', 'rejected', 'published', 'cancelled'])->default('pending')->after('external_id');
-        });
-    }
+    public function down(): void {}
 };
