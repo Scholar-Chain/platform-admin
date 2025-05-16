@@ -21,6 +21,7 @@ class Publisher extends Model
         'address',
         'website',
         'ojs_driver_url',
+        'wallet_address',
         'user_id',
     ];
 

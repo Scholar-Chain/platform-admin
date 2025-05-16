@@ -10,14 +10,37 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BaseResource;
 use App\Repositories\Eloquent\JournalRepository;
 use App\Http\Requests\Api\Submission\StoreRequest;
+use App\Repositories\Eloquent\SubmissionRepository;
 
 class SubmissionController extends Controller
 {
     private $journalModel, $submissionModel;
 
-    public function __construct(JournalRepository $journalModel)
+    public function __construct(JournalRepository $journalModel, SubmissionRepository $submissionModel)
     {
         $this->journalModel = $journalModel;
+        $this->submissionModel = $submissionModel;
+    }
+
+    public function index(Request $request)
+    {
+        try {
+            return $this->submissionModel->all($request->all(['author_id' => auth()->user()->author->id]));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'errors' => 'Data not found',
+            ], 404);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            report($e);
+            return response()->json([
+                'errors' => 'Proses data gagal, silahkan coba lagi.',
+            ], $e->getCode() == 0 ? 500 : ($e->getCode() != 23000 ? $e->getCode() : 500));
+        }
     }
 
     public function store(StoreRequest $request)

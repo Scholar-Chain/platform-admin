@@ -31,6 +31,7 @@ Route::group([
         'prefix' => 'author',
         'roles' => 'author'
     ], function ($router) {
-        Route::post('submission', [App\Http\Controllers\Api\SubmissionController::class, 'store']);
+        Route::get('submissions', [App\Http\Controllers\Api\SubmissionController::class, 'index']);
+        Route::post('submissions', [App\Http\Controllers\Api\SubmissionController::class, 'store']);
     });
 });
