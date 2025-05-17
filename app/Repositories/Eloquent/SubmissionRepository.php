@@ -44,7 +44,7 @@ class SubmissionRepository extends BaseRepository
 
     public function find(string $id): ?JsonResource
     {
-        $data = $this->model->find($id);
+        $data = $this->model->with(['journal'])->find($id);
         if (is_null($data)) {
             throw new \Illuminate\Database\Eloquent\ModelNotFoundException;
         }
