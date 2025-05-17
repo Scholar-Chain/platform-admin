@@ -46,7 +46,7 @@ class SubmissionResource extends JsonResource
             }
         }
 
-        $result['journal'] = $this->whenLoaded('journal');
+        $result['journal'] = new JournalResource($this->whenLoaded('journal'));
 
         return $result;
     }
