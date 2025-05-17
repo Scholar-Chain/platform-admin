@@ -48,4 +48,9 @@ class Submission extends Model
     {
         return $this->belongsTo(Publisher::class);
     }
+
+    public function journal(): BelongsTo
+    {
+        return $this->belongsTo(Journal::class, 'external_id', 'external_id');
+    }
 }
