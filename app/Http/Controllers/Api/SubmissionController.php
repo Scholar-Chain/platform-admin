@@ -54,6 +54,8 @@ class SubmissionController extends Controller
             $journal = $this->journalModel->find($data['journal_id']);
 
             $submission = Submission::create([
+                'status' => SubmissionStatus::SUBMITTED,
+                'trx_hash' => $data['trx_hash'],
                 'external_id' => $journal->external_id,
                 'author_id' => auth('api')->user()->author->id,
                 'publisher_id' => $journal->publisher_id,

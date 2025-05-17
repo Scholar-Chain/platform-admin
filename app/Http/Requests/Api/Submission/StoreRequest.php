@@ -22,7 +22,8 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'journal_id' => ['required', 'int', 'exists:journals,id']
+            'journal_id' => ['required', 'int', 'exists:journals,id'],
+            'trx_hash' => ['required', 'string']
         ];
     }
 }
