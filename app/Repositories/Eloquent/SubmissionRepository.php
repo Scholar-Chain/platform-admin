@@ -24,7 +24,7 @@ class SubmissionRepository extends BaseRepository
 
     public function all(array $params = []): ResourceCollection
     {
-        $data = $this->model->with([]);
+        $data = $this->model->with(['journal']);
         foreach ($this->model->getFillable() as $fillable) {
             if (isset($params[$fillable]) && $fillable !== 'order' && !is_null($params[$fillable]) && $params[$fillable] !== '') {
                 $data = $data->where($fillable, 'LIKE', '%' . $params[$fillable] . '%');
