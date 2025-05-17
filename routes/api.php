@@ -32,6 +32,7 @@ Route::group([
         'roles' => 'author'
     ], function ($router) {
         Route::get('submissions', [App\Http\Controllers\Api\SubmissionController::class, 'index']);
+        Route::get('submissions/{submission}', [App\Http\Controllers\Api\SubmissionController::class, 'show']);
         Route::post('submissions', [App\Http\Controllers\Api\SubmissionController::class, 'store']);
         // Route::put('submissions/{submission}/verified', [App\Http\Controllers\Api\SubmissionController::class, 'verified']);
         // Route::patch('submissions/{submission}/verified', [App\Http\Controllers\Api\SubmissionController::class, 'verified']);

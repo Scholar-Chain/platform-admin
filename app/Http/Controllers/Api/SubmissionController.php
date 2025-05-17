@@ -45,6 +45,27 @@ class SubmissionController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        try {
+            return $this->submissionModel->find($id);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'errors' => 'Data not found',
+            ], 404);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            report($e);
+            return response()->json([
+                'errors' => 'Proses data gagal, silahkan coba lagi.',
+            ], $e->getCode() == 0 ? 500 : ($e->getCode() != 23000 ? $e->getCode() : 500));
+        }
+    }
+
     public function store(StoreRequest $request)
     {
         DB::beginTransaction();

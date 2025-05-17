@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Helpers\MediaFile as MediaHelpers;
 use App\Http\Resources\SubmissionResource;
 use App\Repositories\Eloquent\BaseRepository;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class SubmissionRepository extends BaseRepository
@@ -23,7 +24,7 @@ class SubmissionRepository extends BaseRepository
 
     public function all(array $params = []): ResourceCollection
     {
-        $data = $this->model->with(['journal']);
+        $data = $this->model->with([]);
         foreach ($this->model->getFillable() as $fillable) {
             if (isset($params[$fillable]) && $fillable !== 'order' && !is_null($params[$fillable]) && $params[$fillable] !== '') {
                 $data = $data->where($fillable, 'LIKE', '%' . $params[$fillable] . '%');
@@ -39,5 +40,14 @@ class SubmissionRepository extends BaseRepository
         }
 
         return SubmissionResource::collection($data->paginate(isset($params['limit']) ? $params['limit'] : 25));
+    }
+
+    public function find(string $id): ?JsonResource
+    {
+        $data = $this->model->find($id);
+        if (is_null($data)) {
+            throw new \Illuminate\Database\Eloquent\ModelNotFoundException;
+        }
+        return new SubmissionResource($data);
     }
 }
