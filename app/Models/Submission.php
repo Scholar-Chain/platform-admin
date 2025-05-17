@@ -18,6 +18,7 @@ class Submission extends Model
      */
     protected $fillable = [
         'status',
+        'trx_hash',
         'external_id',
         'author_id',
         'publisher_id',
