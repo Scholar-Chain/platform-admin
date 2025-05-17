@@ -27,7 +27,7 @@ class SubmissionController extends Controller
     public function index(Request $request)
     {
         try {
-            return $this->submissionModel->all($request->all(['author_id' => auth()->user()->author->id]));
+            return $this->submissionModel->all($request->all(['author_id' => auth('api')->user()->author->id]));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'errors' => 'Data not found',
